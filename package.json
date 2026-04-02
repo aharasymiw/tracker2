@@ -1,0 +1,45 @@
+{
+  "name": "tracker2",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vp dev",
+    "build": "vp build",
+    "preview": "vp preview",
+    "typecheck": "tsc -b",
+    "lint": "vp lint",
+    "fmt": "vp fmt",
+    "check": "vp check",
+    "test": "vp test --run",
+    "test:watch": "vp test",
+    "test:e2e": "playwright test",
+    "deploy": "npm run build && wrangler pages deploy dist/ --project-name kindred --branch main"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "4.2.2",
+    "idb": "8.0.3",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "tailwindcss": "4.2.2",
+    "zod": "4.3.6"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.59.1",
+    "@types/node": "24.12.0",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "6.0.1",
+    "@voidzero-dev/vite-plus-core": "0.1.15",
+    "@voidzero-dev/vite-plus-test": "0.1.15",
+    "typescript": "6.0.2",
+    "vite": "npm:@voidzero-dev/vite-plus-core@0.1.15",
+    "vite-plus": "0.1.15",
+    "vitest": "npm:@voidzero-dev/vite-plus-test@0.1.15"
+  },
+  "overrides": {
+    "vite": "npm:@voidzero-dev/vite-plus-core@0.1.15",
+    "vitest": "npm:@voidzero-dev/vite-plus-test@0.1.15"
+  },
+  "packageManager": "npm@11.5.2"
+}

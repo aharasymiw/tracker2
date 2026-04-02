@@ -1,0 +1,18 @@
+{
+  "name": "Kindred",
+  "short_name": "Kindred",
+  "description": "A secure, local-first journal for cannabis use reflection and reduction.",
+  "start_url": "/log",
+  "display": "standalone",
+  "background_color": "#10241d",
+  "theme_color": "#10241d",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

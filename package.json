@@ -14,7 +14,8 @@
     "test": "vp test --run",
     "test:watch": "vp test",
     "test:e2e": "playwright test",
-    "deploy": "npm run build && wrangler pages deploy dist/ --project-name kindred --branch main"
+    "deploy": "npm run build && wrangler pages deploy dist/ --project-name kindred --branch main",
+    "prepare": "git config core.hooksPath .githooks"
   },
   "dependencies": {
     "@tailwindcss/vite": "4.2.2",

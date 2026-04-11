@@ -1,4 +1,5 @@
-import { Assets, Texture } from 'pixi.js';
+import type { Texture } from 'pixi.js';
+import { Assets } from 'pixi.js';
 
 /**
  * Loader for placeholder textures used in Phase 0-2. A real asset manifest

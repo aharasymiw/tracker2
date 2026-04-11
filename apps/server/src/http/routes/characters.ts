@@ -1,4 +1,8 @@
-import type { FastifyInstance, FastifyPluginAsync } from 'fastify';
+import type {
+  FastifyInstance,
+  FastifyPluginAsync,
+  FastifyRequest,
+} from 'fastify';
 import type { Env } from '../../config/env.js';
 import type { Db } from '../../persistence/db.js';
 import type { RedisClient } from '../../persistence/redis.js';
@@ -47,7 +51,7 @@ export const characterRoutes: FastifyPluginAsync<CharactersDeps> = async (
 };
 
 async function requireSession(
-  request: import('fastify').FastifyRequest,
+  request: FastifyRequest,
   redis: RedisClient,
 ): Promise<{ userId: string } | null> {
   const header = request.headers.cookie;

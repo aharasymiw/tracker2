@@ -1,4 +1,9 @@
-import type { FastifyInstance, FastifyPluginAsync } from 'fastify';
+import type {
+  FastifyInstance,
+  FastifyPluginAsync,
+  FastifyReply,
+  FastifyRequest,
+} from 'fastify';
 import { and, eq, isNull } from 'drizzle-orm';
 import { z } from 'zod';
 import type { Env } from '../../config/env.js';
@@ -173,7 +178,7 @@ export const authRoutes: FastifyPluginAsync<AuthDeps> = async (
 };
 
 function setSessionCookie(
-  reply: import('fastify').FastifyReply,
+  reply: FastifyReply,
   token: string,
   secure: boolean,
 ): void {
@@ -186,7 +191,7 @@ function setSessionCookie(
 }
 
 function clearSessionCookie(
-  reply: import('fastify').FastifyReply,
+  reply: FastifyReply,
   secure: boolean,
 ): void {
   reply.header(
@@ -198,7 +203,7 @@ function clearSessionCookie(
 }
 
 function readSessionCookie(
-  request: import('fastify').FastifyRequest,
+  request: FastifyRequest,
 ): string | null {
   const header = request.headers.cookie;
   if (header === undefined) return null;

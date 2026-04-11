@@ -1,7 +1,7 @@
 import type { Result } from '@lod/shared-utils';
 import { err, ok } from '@lod/shared-utils';
 import type { ItemInstanceId } from '../types';
-import { Inventory } from './Inventory';
+import type { Inventory } from './Inventory';
 
 /**
  * Atomic transfer of a single item instance between two inventories. This is

@@ -1,11 +1,14 @@
-import { hash, verify, Algorithm } from '@node-rs/argon2';
+import { hash, verify } from '@node-rs/argon2';
 
 /**
  * Argon2id parameters, calibrated for ~250 ms on a Fly.io shared-cpu-1x.
  * Adjust as hardware improves.
+ *
+ * NOTE: @node-rs/argon2 defaults to Argon2id so we omit the `algorithm` field
+ * rather than importing the const enum (which is incompatible with
+ * isolatedModules).
  */
 const ARGON2_OPTIONS = {
-  algorithm: Algorithm.Argon2id,
   memoryCost: 65536, // 64 MiB
   timeCost: 3,
   parallelism: 1,

@@ -13,7 +13,10 @@ const DEFAULT_INC = 1442695040888963407n;
 const MASK_64 = 0xffffffffffffffffn;
 const MASK_32 = 0xffffffffn;
 
+// Math.trunc is a pure coercion helper, not a source of randomness. game-rng
+// itself is allowed to audit this one usage in one place.
 const toBigInt = (v: bigint | number): bigint =>
+  // eslint-disable-next-line no-restricted-globals
   typeof v === 'bigint' ? v : BigInt(Math.trunc(v));
 
 export interface PCG32Snapshot {
@@ -95,7 +98,7 @@ export class PCG32 {
     const threshold = MOD % range;
     const limit = MOD - threshold;
     // Bound the number of retries just in case; range > 0 so loop terminates almost surely.
-    // eslint-disable-next-line no-constant-condition
+     
     while (true) {
       const r = this.nextRaw();
       if (r < limit) {

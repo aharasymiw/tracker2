@@ -10,8 +10,8 @@ import { combatEventSchema } from './combatMessages';
 
 // ----- Small building blocks -----
 
-export const chatChannelSchema = z.enum(['global', 'local', 'system']);
-export type ServerChatChannel = z.infer<typeof chatChannelSchema>;
+export const serverChatChannelSchema = z.enum(['global', 'local', 'system']);
+export type ServerChatChannel = z.infer<typeof serverChatChannelSchema>;
 
 // A minimal character-state shape used inside StateSnapshot. TODO: expand
 // alongside packages/game-core data models.
@@ -83,7 +83,7 @@ export const presenceUpdateSchema = z.object({
 export const chatMessageSchema = z.object({
   type: z.literal('ChatMessage'),
   payload: z.object({
-    channel: chatChannelSchema,
+    channel: serverChatChannelSchema,
     from: z.string().min(1),
     body: z.string().max(500),
     ts: z.number().int().nonnegative(),

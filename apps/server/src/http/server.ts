@@ -1,4 +1,4 @@
-import Fastify, { type FastifyInstance } from 'fastify';
+import Fastify, { type FastifyBaseLogger, type FastifyInstance } from 'fastify';
 import cors from '@fastify/cors';
 import helmet from '@fastify/helmet';
 import rateLimit from '@fastify/rate-limit';
@@ -25,8 +25,10 @@ export interface BuildServerOptions {
 export async function buildServer(
   opts: BuildServerOptions,
 ): Promise<FastifyInstance> {
+  // Cast pino Logger -> FastifyBaseLogger. The two are structurally compatible
+  // at runtime (msgPrefix is optional in practice) but declared differently.
   const app = Fastify({
-    loggerInstance: opts.logger,
+    loggerInstance: opts.logger as unknown as FastifyBaseLogger,
     disableRequestLogging: false,
     trustProxy: true,
   });

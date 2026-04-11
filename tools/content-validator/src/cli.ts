@@ -3,36 +3,21 @@
 // content through the package's Zod schemas and either prints a summary or
 // exits non-zero with the validation error.
 
-import { loadAllContent } from '@lod/game-content';
+import { loadContentPack } from '@lod/game-content';
 
-function parseArgs(argv: string[]): { contentDir?: string } {
-  const out: { contentDir?: string } = {};
-  for (let i = 0; i < argv.length; i++) {
-    const arg = argv[i];
-    if (arg === '--content-dir') {
-      const next = argv[i + 1];
-      if (!next) {
-        throw new Error('--content-dir requires a path argument');
-      }
-      out.contentDir = next;
-      i++;
-    } else if (arg && arg.startsWith('--content-dir=')) {
-      out.contentDir = arg.slice('--content-dir='.length);
-    }
-  }
-  return out;
-}
-
-async function main(): Promise<void> {
-  const { contentDir } = parseArgs(process.argv.slice(2));
-  const content = await loadAllContent(contentDir);
-  const { items, weapons, enemies, maps } = content;
+function main(): void {
+  const pack = loadContentPack();
   process.stdout.write(
-    `Content OK: ${items.length} items, ${weapons.length} weapons, ${enemies.length} enemies, ${maps.length} maps\n`,
+    `Content OK: ${pack.items.size} items, ${pack.weapons.size} weapons, ` +
+      `${pack.armor.size} armor, ${pack.enemies.size} enemies, ` +
+      `${pack.npcs.size} npcs, ${pack.maps.size} maps, ` +
+      `${Object.keys(pack.dialogue).length} dialogue nodes\n`,
   );
 }
 
-main().catch((err: unknown) => {
+try {
+  main();
+} catch (err: unknown) {
   process.stderr.write('Content validation failed:\n');
   if (err instanceof Error) {
     process.stderr.write(`${err.message}\n`);
@@ -43,4 +28,4 @@ main().catch((err: unknown) => {
     process.stderr.write(`${String(err)}\n`);
   }
   process.exit(1);
-});
+}

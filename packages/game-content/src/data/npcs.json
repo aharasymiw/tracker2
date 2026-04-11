@@ -1,0 +1,49 @@
+[
+  {
+    "id": "doc_sterling",
+    "name": "Doc Sterling",
+    "role": "doctor",
+    "dialogueKey": "doc_sterling.greeting",
+    "sectorId": "sacre_base",
+    "position": { "x": 3, "y": 3 }
+  },
+  {
+    "id": "archivist_eleanor",
+    "name": "Archivist Eleanor",
+    "role": "quest_giver",
+    "dialogueKey": "archivist_eleanor.greeting",
+    "sectorId": "sacre_base",
+    "position": { "x": 16, "y": 3 }
+  },
+  {
+    "id": "trainer_rex",
+    "name": "Trainer Rex",
+    "role": "trainer",
+    "dialogueKey": "trainer_rex.greeting",
+    "sectorId": "sacre_base",
+    "position": { "x": 3, "y": 8 }
+  },
+  {
+    "id": "merchant_krel",
+    "name": "Merchant Krel",
+    "role": "shopkeeper",
+    "dialogueKey": "merchant_krel.greeting",
+    "sectorId": "sacre_base",
+    "position": { "x": 16, "y": 8 },
+    "shopStock": [
+      "medkit_small",
+      "medkit_large",
+      "power_pack",
+      "grav_pack",
+      "tricorder"
+    ]
+  },
+  {
+    "id": "banker_vinn",
+    "name": "Banker Vinn",
+    "role": "banker",
+    "dialogueKey": "banker_vinn.greeting",
+    "sectorId": "sacre_base",
+    "position": { "x": 10, "y": 11 }
+  }
+]

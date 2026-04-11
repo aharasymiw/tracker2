@@ -1,0 +1,81 @@
+[
+  {
+    "id": "rad_rat",
+    "name": "Rad Rat",
+    "description": "Bloated rodent the size of a dog, with glowing eyes and a hunger for anything warm.",
+    "tier": 1,
+    "stats": { "str": 4, "dex": 6, "agl": 9, "hpMax": 12 },
+    "weaponClose": "fists",
+    "lootTable": [
+      { "itemId": "power_pack", "chance": 0.2, "qty": [1, 1] }
+    ],
+    "xpReward": 8,
+    "creditsReward": [1, 6]
+  },
+  {
+    "id": "mutant_scavenger",
+    "name": "Mutant Scavenger",
+    "description": "A stooped humanoid in stitched rags, waving a rusted blade and muttering curses.",
+    "tier": 2,
+    "stats": { "str": 7, "dex": 7, "agl": 8, "hpMax": 22 },
+    "weaponClose": "rusty_shiv",
+    "weaponLong": "crude_pistol",
+    "armor": "rags",
+    "lootTable": [
+      { "itemId": "power_pack", "chance": 0.35, "qty": [1, 2] },
+      { "itemId": "medkit_small", "chance": 0.15, "qty": [1, 1] }
+    ],
+    "xpReward": 18,
+    "creditsReward": [4, 18]
+  },
+  {
+    "id": "irradiated_hound",
+    "name": "Irradiated Hound",
+    "description": "Hairless and fast, its skin cracks with blue radiation burns. Hunts in pairs.",
+    "tier": 3,
+    "stats": { "str": 10, "dex": 9, "agl": 13, "hpMax": 34 },
+    "weaponClose": "rusty_shiv",
+    "armor": "rags",
+    "lootTable": [
+      { "itemId": "medkit_small", "chance": 0.25, "qty": [1, 2] },
+      { "itemId": "power_pack", "chance": 0.3, "qty": [1, 3] }
+    ],
+    "xpReward": 34,
+    "creditsReward": [8, 28]
+  },
+  {
+    "id": "wasteland_raider",
+    "name": "Wasteland Raider",
+    "description": "Leather-clad mutant in a scavenged helmet. Trained, organised, and cruel.",
+    "tier": 4,
+    "stats": { "str": 13, "dex": 12, "agl": 11, "hpMax": 55 },
+    "weaponClose": "rusty_shiv",
+    "weaponLong": "dream_blaster",
+    "armor": "leather_harness",
+    "lootTable": [
+      { "itemId": "medkit_small", "chance": 0.4, "qty": [1, 2] },
+      { "itemId": "power_pack", "chance": 0.5, "qty": [2, 5] },
+      { "itemId": "grav_pack", "chance": 0.1, "qty": [1, 1] }
+    ],
+    "xpReward": 70,
+    "creditsReward": [20, 80]
+  },
+  {
+    "id": "cyber_mutant",
+    "name": "Cyber Mutant",
+    "description": "Half-flesh, half-salvaged servos, welded together by Cabal engineers. Fearless.",
+    "tier": 6,
+    "stats": { "str": 18, "dex": 15, "agl": 12, "hpMax": 110 },
+    "weaponClose": "cabal_sceptre",
+    "weaponLong": "terror_blast",
+    "armor": "reinforced_vest",
+    "lootTable": [
+      { "itemId": "medkit_large", "chance": 0.35, "qty": [1, 1] },
+      { "itemId": "grav_pack", "chance": 0.4, "qty": [1, 2] },
+      { "itemId": "vortex_cell", "chance": 0.2, "qty": [1, 1] },
+      { "itemId": "puritron_fragment", "chance": 0.05, "qty": [1, 1] }
+    ],
+    "xpReward": 180,
+    "creditsReward": [60, 220]
+  }
+]

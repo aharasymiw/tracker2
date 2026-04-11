@@ -1,0 +1,49 @@
+{
+  "id": "wasteland",
+  "name": "Near Wasteland",
+  "width": 30,
+  "height": 30,
+  "sectorId": "wasteland_near",
+  "tiles": [
+    "wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","sacre_base_entry","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall",
+    "wall","floor","floor","rough","rough","floor","floor","floor","rough","rough","floor","floor","floor","floor","floor","floor","floor","floor","floor","rough","rough","floor","floor","floor","floor","rough","floor","floor","floor","wall",
+    "wall","floor","rough","rough","floor","floor","floor","rough","rough","floor","floor","wall","floor","floor","floor","floor","floor","floor","rough","rough","floor","floor","floor","rough","floor","floor","floor","floor","floor","wall",
+    "wall","rough","rough","floor","floor","wall","floor","floor","floor","floor","floor","floor","floor","rough","rough","floor","floor","floor","floor","floor","floor","wall","floor","floor","floor","floor","rough","rough","floor","wall",
+    "wall","floor","floor","floor","floor","floor","floor","rough","rough","floor","floor","floor","floor","floor","floor","floor","rough","rough","floor","floor","floor","floor","floor","rough","rough","floor","floor","floor","floor","wall",
+    "wall","floor","floor","rough","rough","floor","floor","floor","floor","floor","wall","floor","floor","floor","rough","rough","floor","floor","floor","floor","wall","floor","floor","floor","floor","floor","floor","rough","rough","wall",
+    "wall","floor","rough","rough","floor","floor","floor","water","water","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","rough","rough","floor","floor","floor","water","water","floor","floor","floor","wall",
+    "wall","floor","floor","floor","floor","floor","water","water","water","floor","floor","floor","rough","rough","floor","floor","floor","floor","floor","floor","floor","floor","water","water","water","floor","floor","floor","floor","wall",
+    "wall","floor","floor","rough","floor","floor","floor","water","floor","floor","floor","floor","floor","floor","floor","floor","floor","rough","rough","floor","floor","floor","floor","water","floor","floor","floor","rough","floor","wall",
+    "wall","floor","floor","floor","floor","floor","floor","floor","floor","floor","wall","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","wall","floor","floor","floor","floor","floor","floor","floor","wall",
+    "wall","rough","floor","floor","floor","wall","wall","floor","floor","floor","floor","floor","rough","rough","floor","floor","floor","floor","floor","floor","wall","wall","floor","floor","floor","rough","floor","floor","rough","wall",
+    "wall","floor","floor","rough","rough","floor","floor","floor","floor","rough","rough","floor","floor","floor","floor","floor","rough","rough","floor","floor","floor","floor","floor","rough","rough","floor","floor","floor","floor","wall",
+    "wall","floor","floor","floor","floor","floor","floor","rough","floor","floor","floor","floor","floor","floor","wall","floor","floor","floor","floor","rough","rough","floor","floor","floor","floor","floor","wall","floor","floor","wall",
+    "wall","floor","rough","rough","floor","floor","floor","floor","floor","floor","rough","rough","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","rough","rough","floor","floor","floor","floor","rough","wall",
+    "wall","floor","floor","floor","floor","floor","rough","rough","floor","floor","floor","floor","floor","rough","rough","floor","floor","floor","rough","rough","floor","floor","floor","floor","floor","rough","rough","floor","floor","wall",
+    "wall","floor","floor","floor","wall","floor","floor","floor","floor","floor","floor","wall","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","wall","floor","floor","floor","floor","floor","floor","wall",
+    "wall","floor","floor","floor","floor","floor","floor","rough","rough","floor","floor","floor","floor","floor","rough","rough","floor","floor","floor","floor","rough","rough","floor","floor","floor","floor","rough","rough","floor","wall",
+    "wall","floor","rough","rough","floor","floor","floor","floor","floor","rough","rough","floor","floor","floor","floor","floor","rough","rough","floor","floor","floor","floor","floor","rough","rough","floor","floor","floor","floor","wall",
+    "wall","floor","floor","floor","floor","rough","rough","floor","floor","floor","floor","floor","rough","rough","floor","floor","floor","floor","floor","rough","rough","floor","floor","floor","floor","floor","rough","rough","floor","wall",
+    "wall","floor","floor","wall","floor","floor","floor","floor","floor","floor","wall","floor","floor","floor","floor","floor","floor","wall","floor","floor","floor","floor","floor","floor","wall","floor","floor","floor","floor","wall",
+    "wall","floor","floor","floor","floor","floor","rough","rough","floor","floor","floor","floor","rough","rough","floor","floor","floor","floor","rough","rough","floor","floor","floor","floor","floor","rough","rough","floor","floor","wall",
+    "wall","rough","rough","floor","floor","floor","floor","floor","rough","rough","floor","floor","floor","floor","floor","rough","rough","floor","floor","floor","floor","rough","rough","floor","floor","floor","floor","floor","rough","wall",
+    "wall","floor","floor","floor","rough","rough","floor","floor","floor","floor","floor","rough","rough","floor","floor","floor","floor","floor","rough","rough","floor","floor","floor","floor","rough","rough","floor","floor","floor","wall",
+    "wall","floor","floor","floor","floor","floor","floor","floor","rough","rough","floor","floor","floor","floor","floor","floor","rough","rough","floor","floor","floor","floor","floor","floor","floor","floor","rough","rough","floor","wall",
+    "wall","floor","rough","rough","floor","floor","floor","floor","floor","floor","floor","rough","rough","floor","floor","floor","floor","floor","floor","rough","rough","floor","floor","floor","floor","floor","floor","floor","floor","wall",
+    "wall","floor","floor","floor","floor","wall","wall","floor","floor","floor","floor","floor","floor","floor","wall","wall","floor","floor","floor","floor","floor","floor","wall","wall","floor","floor","floor","floor","floor","wall",
+    "wall","floor","floor","rough","rough","floor","floor","floor","rough","rough","floor","floor","floor","floor","floor","floor","rough","rough","floor","floor","floor","floor","floor","floor","rough","rough","floor","floor","floor","wall",
+    "wall","rough","rough","floor","floor","floor","rough","rough","floor","floor","floor","floor","rough","rough","floor","floor","floor","floor","floor","rough","rough","floor","floor","floor","floor","floor","rough","rough","floor","wall",
+    "wall","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","wall",
+    "wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall"
+  ],
+  "spawns": [
+    { "x": 5, "y": 5, "kind": "enemy", "refId": "rad_rat" },
+    { "x": 12, "y": 9, "kind": "enemy", "refId": "mutant_scavenger" },
+    { "x": 20, "y": 14, "kind": "enemy", "refId": "irradiated_hound" },
+    { "x": 8, "y": 20, "kind": "enemy", "refId": "wasteland_raider" },
+    { "x": 24, "y": 24, "kind": "enemy", "refId": "cyber_mutant" }
+  ],
+  "exits": [
+    { "x": 15, "y": 0, "toMapId": "sacre_base", "toX": 10, "toY": 13 }
+  ]
+}

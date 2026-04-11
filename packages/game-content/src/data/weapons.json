@@ -1,0 +1,83 @@
+[
+  {
+    "id": "fists",
+    "name": "Fists",
+    "description": "Your bare hands. Always available, rarely sufficient.",
+    "kind": "close",
+    "base": 1,
+    "variance": 2,
+    "accuracy": 0.1,
+    "buyPrice": null,
+    "sellPrice": null
+  },
+  {
+    "id": "rusty_shiv",
+    "name": "Rusty Shiv",
+    "description": "Improvised scrap blade. Tetanus is a feature.",
+    "kind": "close",
+    "base": 4,
+    "variance": 3,
+    "accuracy": 0.05,
+    "buyPrice": 30,
+    "sellPrice": 10
+  },
+  {
+    "id": "cabal_sceptre",
+    "name": "Cabal Sceptre",
+    "description": "Ornate rod of the Cabal priesthood. Each strike discharges vortex energy.",
+    "kind": "close",
+    "base": 30,
+    "variance": 10,
+    "accuracy": 0.08,
+    "buyPrice": 4500,
+    "sellPrice": 1600
+  },
+  {
+    "id": "crude_pistol",
+    "name": "Crude Pistol",
+    "description": "Starter sidearm cobbled together from pre-war scrap. Good out to about eight tiles.",
+    "kind": "long",
+    "base": 6,
+    "variance": 4,
+    "accuracy": 0.0,
+    "optimalRange": 8,
+    "buyPrice": 120,
+    "sellPrice": 45
+  },
+  {
+    "id": "dream_blaster",
+    "name": "DreamBlaster",
+    "description": "Mid-range energy weapon. Fires shimmering indigo bolts that disorient the target.",
+    "kind": "long",
+    "base": 22,
+    "variance": 8,
+    "accuracy": 0.05,
+    "optimalRange": 10,
+    "buyPrice": 1800,
+    "sellPrice": 700
+  },
+  {
+    "id": "terror_blast",
+    "name": "TerrorBlast",
+    "description": "Heavy plasma cannon. Slow, intimidating, and deadly when it connects.",
+    "kind": "long",
+    "base": 55,
+    "variance": 20,
+    "accuracy": -0.05,
+    "optimalRange": 12,
+    "buyPrice": 7500,
+    "sellPrice": 2800
+  },
+  {
+    "id": "fortslayer_deluxe",
+    "name": "FortSlayer Deluxe",
+    "description": "Siege-class rail rifle. Built to crack fortress walls and the mutants hiding behind them.",
+    "kind": "long",
+    "base": 100,
+    "variance": 40,
+    "accuracy": 0.0,
+    "optimalRange": 14,
+    "buyPrice": 24000,
+    "sellPrice": 9000
+  }
+]

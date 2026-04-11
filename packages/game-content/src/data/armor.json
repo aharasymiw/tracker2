@@ -1,0 +1,38 @@
+[
+  {
+    "id": "rags",
+    "name": "Wasteland Rags",
+    "description": "Layered scraps of fabric. Barely more than clothing, but better than nothing.",
+    "soak": 0,
+    "soakLong": 0,
+    "buyPrice": 10,
+    "sellPrice": 2
+  },
+  {
+    "id": "leather_harness",
+    "name": "Leather Harness",
+    "description": "Boiled leather over a pre-war bodysuit. Favored by scavengers and light raiders.",
+    "soak": 5,
+    "soakLong": 3,
+    "buyPrice": 240,
+    "sellPrice": 90
+  },
+  {
+    "id": "reinforced_vest",
+    "name": "Reinforced Vest",
+    "description": "Plated combat vest, stamped with the Sacre Base crest. Standard militia issue.",
+    "soak": 12,
+    "soakLong": 8,
+    "buyPrice": 1200,
+    "sellPrice": 450
+  },
+  {
+    "id": "cabal_robes",
+    "name": "Cabal Robes",
+    "description": "Thick ceremonial robes woven with vortex-threaded mesh. Absorbs energy strikes.",
+    "soak": 18,
+    "soakLong": 14,
+    "buyPrice": 5200,
+    "sellPrice": 2000
+  }
+]

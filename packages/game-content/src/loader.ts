@@ -1,13 +1,13 @@
 import { z } from 'zod';
 
-import itemsJson from './data/items.json';
-import weaponsJson from './data/weapons.json';
-import armorJson from './data/armor.json';
-import enemiesJson from './data/enemies.json';
-import npcsJson from './data/npcs.json';
-import dialogueJson from './data/dialogue.json';
-import sacreBaseJson from './data/maps/sacre-base.json';
-import wastelandJson from './data/maps/wasteland.json';
+import itemsJson from './data/items.json' with { type: 'json' };
+import weaponsJson from './data/weapons.json' with { type: 'json' };
+import armorJson from './data/armor.json' with { type: 'json' };
+import enemiesJson from './data/enemies.json' with { type: 'json' };
+import npcsJson from './data/npcs.json' with { type: 'json' };
+import dialogueJson from './data/dialogue.json' with { type: 'json' };
+import sacreBaseJson from './data/maps/sacre-base.json' with { type: 'json' };
+import wastelandJson from './data/maps/wasteland.json' with { type: 'json' };
 
 import {
   itemSchema,

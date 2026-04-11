@@ -8,7 +8,7 @@
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "echo \"(no unit tests)\"",
-    "start": "node dist/cli.js"
+    "start": "pnpm run build && node dist/cli.js"
   },
   "dependencies": {
     "@lod/game-content": "workspace:*",

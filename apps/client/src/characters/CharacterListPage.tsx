@@ -1,6 +1,7 @@
 import { useEffect, type ReactElement } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import { apiUrl } from '../net/apiBase';
 
 /**
  * Minimal character summary shape returned by `GET /api/characters`. Will be
@@ -24,7 +25,7 @@ class HttpError extends Error {
 }
 
 async function fetchCharacters(): Promise<CharacterSummary[]> {
-  const response = await fetch('/api/characters', { credentials: 'include' });
+  const response = await fetch(apiUrl('/api/characters'), { credentials: 'include' });
   if (!response.ok) {
     throw new HttpError(`failed to load characters (${response.status})`, response.status);
   }

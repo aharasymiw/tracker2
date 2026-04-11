@@ -1,6 +1,7 @@
 import { useMemo, useState, type FormEvent, type ReactElement } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
+import { apiUrl } from '../net/apiBase';
 
 /**
  * Total stat-point budget for new characters. Distribution is STR/DEX/AGL/HP.
@@ -29,7 +30,7 @@ interface CreateCharacterResponse {
 async function createCharacter(
   input: CreateCharacterRequest,
 ): Promise<CreateCharacterResponse> {
-  const response = await fetch('/api/characters', {
+  const response = await fetch(apiUrl('/api/characters'), {
     method: 'POST',
     credentials: 'include',
     headers: { 'content-type': 'application/json' },

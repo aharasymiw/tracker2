@@ -37,8 +37,11 @@ export async function buildServer(
 
   await app.register(helmet, { global: true });
 
+  const corsOrigins = opts.env.CORS_ORIGIN.split(',')
+    .map((origin) => origin.trim())
+    .filter((origin) => origin.length > 0);
   await app.register(cors, {
-    origin: true,
+    origin: corsOrigins,
     credentials: true,
   });
 

@@ -1,6 +1,7 @@
 import { useEffect, useRef, type ReactElement } from 'react';
 import { PixiApp } from '../render/PixiApp';
 import { WebSocketClient } from '../net/WebSocketClient';
+import { wsUrl } from '../net/apiBase';
 import { useWorldStore } from '../state/worldStore';
 import { HUD } from './HUD';
 import { InventoryPanel } from './InventoryPanel';
@@ -8,12 +9,6 @@ import { CombatOverlay } from './CombatOverlay';
 
 const CANVAS_WIDTH = 960;
 const CANVAS_HEIGHT = 540;
-
-function buildWebSocketUrl(): string {
-  if (typeof window === 'undefined') return 'ws://localhost:4000/ws';
-  const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-  return `${protocol}//${window.location.host}/ws`;
-}
 
 export function GamePage(): ReactElement {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -37,7 +32,7 @@ export function GamePage(): ReactElement {
     });
 
     const client = new WebSocketClient({
-      url: buildWebSocketUrl(),
+      url: wsUrl('/ws'),
       handlers: {
         onMessage: (message) => {
           switch (message.type) {

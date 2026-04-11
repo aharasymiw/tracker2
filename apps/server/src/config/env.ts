@@ -19,6 +19,13 @@ const envSchema = z.object({
     .min(32)
     .default('dev-dev-dev-dev-dev-dev-dev-dev-dev-'),
   PASSWORD_PEPPER: z.string().default('dev-pepper-change-in-production'),
+  /**
+   * Comma-separated list of origins allowed by the CORS policy. The default is
+   * the Vite dev server so local `pnpm dev` works out of the box; production
+   * must set this to the Cloudflare Pages origin (and any custom domain) via
+   * `fly secrets set CORS_ORIGIN=...`.
+   */
+  CORS_ORIGIN: z.string().default('http://localhost:5173'),
   LOG_LEVEL: z
     .enum(['trace', 'debug', 'info', 'warn', 'error', 'fatal'])
     .default('info'),

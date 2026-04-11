@@ -1,0 +1,35 @@
+{
+  "id": "sacre_base",
+  "name": "Sacre Base",
+  "width": 20,
+  "height": 15,
+  "sectorId": "sacre_base",
+  "tiles": [
+    "wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall",
+    "wall","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","wall",
+    "wall","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","wall",
+    "wall","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","wall",
+    "wall","floor","floor","floor","floor","wall","floor","floor","floor","floor","floor","floor","floor","floor","wall","floor","floor","floor","floor","wall",
+    "wall","floor","floor","floor","floor","wall","wall","wall","floor","floor","floor","floor","wall","wall","wall","floor","floor","floor","floor","wall",
+    "wall","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","wall",
+    "wall","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","wall",
+    "wall","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","wall",
+    "wall","floor","floor","floor","floor","wall","wall","wall","floor","floor","floor","floor","wall","wall","wall","floor","floor","floor","floor","wall",
+    "wall","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","wall",
+    "wall","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","wall",
+    "wall","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","wall",
+    "wall","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","floor","wall",
+    "wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","sacre_base_entry","wall","wall","wall","wall","wall","wall","wall","wall","wall"
+  ],
+  "spawns": [
+    { "x": 10, "y": 13, "kind": "player_start" },
+    { "x": 3, "y": 3, "kind": "npc", "refId": "doc_sterling" },
+    { "x": 16, "y": 3, "kind": "npc", "refId": "archivist_eleanor" },
+    { "x": 3, "y": 8, "kind": "npc", "refId": "trainer_rex" },
+    { "x": 16, "y": 8, "kind": "npc", "refId": "merchant_krel" },
+    { "x": 10, "y": 11, "kind": "npc", "refId": "banker_vinn" }
+  ],
+  "exits": [
+    { "x": 10, "y": 14, "toMapId": "wasteland", "toX": 15, "toY": 1 }
+  ]
+}

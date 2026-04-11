@@ -1,46 +1,39 @@
 {
-  "name": "tracker2",
-  "version": "0.1.0",
+  "name": "land-of-devastation",
+  "version": "0.0.0",
   "private": true,
+  "description": "Modern client/server rewrite of the classic BBS door game Land of Devastation",
   "type": "module",
-  "scripts": {
-    "dev": "vp dev",
-    "build": "vp build",
-    "preview": "vp preview",
-    "typecheck": "tsc -b",
-    "lint": "vp lint",
-    "fmt": "vp fmt",
-    "check": "vp check",
-    "test": "vp test --run",
-    "test:watch": "vp test",
-    "test:e2e": "playwright test",
-    "deploy": "npm run build && wrangler pages deploy dist/ --project-name kindred --branch main",
-    "prepare": "git config core.hooksPath .githooks"
+  "engines": {
+    "node": ">=22.0.0",
+    "pnpm": ">=9.0.0"
   },
-  "dependencies": {
-    "@tailwindcss/vite": "4.2.2",
-    "idb": "8.0.3",
-    "react": "19.2.4",
-    "react-dom": "19.2.4",
-    "tailwindcss": "4.2.2",
-    "zod": "4.3.6"
+  "packageManager": "pnpm@9.12.0",
+  "scripts": {
+    "build": "pnpm -r --filter=\"./packages/**\" build && pnpm -r --filter=\"./apps/**\" build",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "fmt": "prettier --write .",
+    "fmt:check": "prettier --check .",
+    "test": "pnpm -r --filter=\"!@lod/e2e\" test",
+    "test:e2e": "pnpm --filter @lod/e2e test",
+    "test:watch": "pnpm -r --parallel --filter=\"!@lod/e2e\" test:watch",
+    "content:validate": "pnpm --filter @lod/content-validator start",
+    "dev": "pnpm -r --parallel dev",
+    "check": "pnpm typecheck && pnpm lint && pnpm test",
+    "clean": "pnpm -r exec rm -rf dist node_modules && rm -rf node_modules"
   },
   "devDependencies": {
-    "@playwright/test": "1.59.1",
-    "@types/node": "24.12.0",
-    "@types/react": "19.2.14",
-    "@types/react-dom": "19.2.3",
-    "@vitejs/plugin-react": "6.0.1",
-    "@voidzero-dev/vite-plus-core": "0.1.15",
-    "@voidzero-dev/vite-plus-test": "0.1.15",
-    "typescript": "6.0.2",
-    "vite": "npm:@voidzero-dev/vite-plus-core@0.1.15",
-    "vite-plus": "0.1.15",
-    "vitest": "npm:@voidzero-dev/vite-plus-test@0.1.15"
-  },
-  "overrides": {
-    "vite": "npm:@voidzero-dev/vite-plus-core@0.1.15",
-    "vitest": "npm:@voidzero-dev/vite-plus-test@0.1.15"
-  },
-  "packageManager": "npm@11.5.2"
+    "@types/node": "^22.7.5",
+    "@typescript-eslint/eslint-plugin": "^8.8.1",
+    "@typescript-eslint/parser": "^8.8.1",
+    "eslint": "^9.12.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.31.0",
+    "globals": "^15.11.0",
+    "prettier": "^3.3.3",
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.8.1"
+  }
 }

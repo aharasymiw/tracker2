@@ -1,0 +1,42 @@
+# Local development services for Land of Devastation.
+# Run from repo root: `docker compose -f ops/docker/docker-compose.dev.yml up -d`
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: lod
+      POSTGRES_PASSWORD: lod
+      POSTGRES_DB: lod_dev
+    ports:
+      - '5432:5432'
+    volumes:
+      - lod_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U lod']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    ports:
+      - '6379:6379'
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # Optional: captures outbound mail in dev (e.g. future password-reset flow).
+  # SMTP on 1025, web UI on 8025.
+  mailhog:
+    image: mailhog/mailhog
+    restart: unless-stopped
+    ports:
+      - '1025:1025'
+      - '8025:8025'
+
+volumes:
+  lod_pgdata:

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 set -e
-npm run check
-npm test
+pnpm typecheck
+pnpm lint

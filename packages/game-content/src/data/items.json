@@ -1,0 +1,84 @@
+[
+  {
+    "id": "medkit_small",
+    "name": "Small Medkit",
+    "description": "A single-use auto-injector that patches minor wounds and kills surface radiation.",
+    "category": "consumable",
+    "stackable": true,
+    "maxStack": 20,
+    "buyPrice": 50,
+    "sellPrice": 20,
+    "effects": { "heal": 25 }
+  },
+  {
+    "id": "medkit_large",
+    "name": "Large Medkit",
+    "description": "A Sacre Base trauma kit. Stops bleeding, closes lacerations, and purges isotopes.",
+    "category": "consumable",
+    "stackable": true,
+    "maxStack": 10,
+    "buyPrice": 180,
+    "sellPrice": 80,
+    "effects": { "heal": 100 }
+  },
+  {
+    "id": "tricorder",
+    "name": "Tricorder",
+    "description": "Pre-war scanning tool. Reveals nearby hostiles and scans salvage for hidden value.",
+    "category": "tool",
+    "stackable": false,
+    "maxStack": 1,
+    "buyPrice": 500,
+    "sellPrice": 200
+  },
+  {
+    "id": "power_pack",
+    "name": "Power Pack",
+    "description": "Standard fission battery. Runs most salvaged weapons and base utilities.",
+    "category": "power_cell",
+    "stackable": true,
+    "maxStack": 50,
+    "buyPrice": 30,
+    "sellPrice": 12
+  },
+  {
+    "id": "grav_pack",
+    "name": "Grav Pack",
+    "description": "Heavy graviton battery. Required to fire siege-class long range weaponry.",
+    "category": "power_cell",
+    "stackable": true,
+    "maxStack": 10,
+    "buyPrice": 220,
+    "sellPrice": 90
+  },
+  {
+    "id": "vortex_cell",
+    "name": "Vortex Cell",
+    "description": "Swirling plasma cell favored by Cabal artifacts. Glows faintly blue.",
+    "category": "power_cell",
+    "stackable": true,
+    "maxStack": 10,
+    "buyPrice": 400,
+    "sellPrice": 160
+  },
+  {
+    "id": "kralox_cell",
+    "name": "Kralox Cell",
+    "description": "Banned mutant-forged cell. Unstable but massively energetic; used in Kralox tech.",
+    "category": "power_cell",
+    "stackable": true,
+    "maxStack": 5,
+    "buyPrice": 900,
+    "sellPrice": 350
+  },
+  {
+    "id": "puritron_fragment",
+    "name": "Puritron Fragment",
+    "description": "A mangled shard of the Puritron atmospheric filter. Return it to the Archives.",
+    "category": "key_item",
+    "stackable": false,
+    "maxStack": 1,
+    "buyPrice": null,
+    "sellPrice": null
+  }
+]

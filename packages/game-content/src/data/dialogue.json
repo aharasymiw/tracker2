@@ -1,0 +1,99 @@
+{
+  "doc_sterling.greeting": {
+    "id": "doc_sterling.greeting",
+    "text": "Hold still. Those burns around the collar mean you've been close to a Kralox cell again. Sacre Base med bay's open; credits on the counter.",
+    "choices": [
+      { "label": "Patch me up.", "next": "doc_sterling.treated", "action": { "kind": "buy", "payload": { "service": "full_heal" } } },
+      { "label": "Just browsing.", "next": null, "action": { "kind": "exit" } }
+    ]
+  },
+  "doc_sterling.treated": {
+    "id": "doc_sterling.treated",
+    "text": "Good as any pre-war hospital. Try to come back in one piece next time - the wasteland doesn't hand out second chances.",
+    "choices": [
+      { "label": "Thanks, Doc.", "next": null, "action": { "kind": "exit" } }
+    ]
+  },
+  "archivist_eleanor.greeting": {
+    "id": "archivist_eleanor.greeting",
+    "text": "You're the new runner? Good. The Archives have tracked thirteen Puritron fragments scattered across the wasteland. Recover them and the atmosphere might finally clear.",
+    "choices": [
+      { "label": "Tell me about the Puritron.", "next": "archivist_eleanor.lore", "action": { "kind": "rumor" } },
+      { "label": "I'll find the fragments.", "next": "archivist_eleanor.quest", "action": { "kind": "quest", "payload": { "questId": "puritron_main" } } },
+      { "label": "Later.", "next": null, "action": { "kind": "exit" } }
+    ]
+  },
+  "archivist_eleanor.lore": {
+    "id": "archivist_eleanor.lore",
+    "text": "Before the war, Sacre Base engineered the Puritron to scrub fallout from the upper atmosphere. When the Cabal and the Kralox tore it apart, the sky never healed. Every fragment you return buys humanity another breath.",
+    "choices": [
+      { "label": "I'll bring them back.", "next": "archivist_eleanor.quest", "action": { "kind": "quest", "payload": { "questId": "puritron_main" } } },
+      { "label": "That's a lot to ask.", "next": null, "action": { "kind": "exit" } }
+    ]
+  },
+  "archivist_eleanor.quest": {
+    "id": "archivist_eleanor.quest",
+    "text": "Each fragment earns you credits, lore, and an extra turn on your daily clock. Start in the near wasteland - scavengers there sometimes carry shards they don't recognise.",
+    "choices": [
+      { "label": "Understood.", "next": null, "action": { "kind": "exit" } }
+    ]
+  },
+  "trainer_rex.greeting": {
+    "id": "trainer_rex.greeting",
+    "text": "Sacre Base gym. I train STR, DEX, and AGL - three sessions per credit if you can keep up. What's it going to be?",
+    "choices": [
+      { "label": "Train Strength.", "next": "trainer_rex.done", "action": { "kind": "train", "payload": { "stat": "str" } } },
+      { "label": "Train Dexterity.", "next": "trainer_rex.done", "action": { "kind": "train", "payload": { "stat": "dex" } } },
+      { "label": "Train Agility.", "next": "trainer_rex.done", "action": { "kind": "train", "payload": { "stat": "agl" } } },
+      { "label": "Maybe later.", "next": null, "action": { "kind": "exit" } }
+    ]
+  },
+  "trainer_rex.done": {
+    "id": "trainer_rex.done",
+    "text": "Good session. Come back tomorrow - bodies mend faster than reputations out there.",
+    "choices": [
+      { "label": "Thanks.", "next": null, "action": { "kind": "exit" } }
+    ]
+  },
+  "merchant_krel.greeting": {
+    "id": "merchant_krel.greeting",
+    "text": "Krel's Salvage and Sundries. Best prices inside Sacre Base - which, granted, isn't saying much. Buying or selling?",
+    "choices": [
+      { "label": "Show me your stock.", "next": "merchant_krel.shop", "action": { "kind": "buy" } },
+      { "label": "I've got loot to sell.", "next": "merchant_krel.shop", "action": { "kind": "sell" } },
+      { "label": "Heard any rumors?", "next": "merchant_krel.rumor", "action": { "kind": "rumor" } },
+      { "label": "Just passing through.", "next": null, "action": { "kind": "exit" } }
+    ]
+  },
+  "merchant_krel.shop": {
+    "id": "merchant_krel.shop",
+    "text": "Take your time. No refunds on medkits, no haggling on grav packs.",
+    "choices": [
+      { "label": "Back.", "next": "merchant_krel.greeting" },
+      { "label": "Leave.", "next": null, "action": { "kind": "exit" } }
+    ]
+  },
+  "merchant_krel.rumor": {
+    "id": "merchant_krel.rumor",
+    "text": "A raider out east claims he saw a FortSlayer Deluxe in the rubble of an old Cabal shrine. Probably lying. Probably.",
+    "choices": [
+      { "label": "Interesting.", "next": "merchant_krel.greeting" }
+    ]
+  },
+  "banker_vinn.greeting": {
+    "id": "banker_vinn.greeting",
+    "text": "Welcome to the Sacre Base Mutual. Your credits are safer in the vault than in your pockets out in the wasteland. Deposit, withdraw, or check your balance?",
+    "choices": [
+      { "label": "Deposit credits.", "next": "banker_vinn.done", "action": { "kind": "buy", "payload": { "service": "deposit" } } },
+      { "label": "Withdraw credits.", "next": "banker_vinn.done", "action": { "kind": "sell", "payload": { "service": "withdraw" } } },
+      { "label": "Nothing today.", "next": null, "action": { "kind": "exit" } }
+    ]
+  },
+  "banker_vinn.done": {
+    "id": "banker_vinn.done",
+    "text": "Your account is in order. Try not to die out there - unclaimed balances are confiscated after ninety days.",
+    "choices": [
+      { "label": "Noted.", "next": null, "action": { "kind": "exit" } }
+    ]
+  }
+}

@@ -1,0 +1,51 @@
+# syntax=docker/dockerfile:1.7
+
+# ---------- Stage 1: builder ----------
+FROM node:22-alpine AS builder
+
+# Enable pnpm via corepack
+RUN corepack enable && corepack prepare pnpm@9 --activate
+
+WORKDIR /app
+
+# Copy the whole monorepo. We need the workspace metadata plus every package
+# to resolve workspace:* deps during install and build.
+COPY . .
+
+# Install all dependencies (dev included; needed for building).
+RUN pnpm install --frozen-lockfile
+
+# Build workspace packages first, then the server app.
+RUN pnpm -r --filter=./packages/** build
+RUN pnpm --filter=@lod/server build
+
+# Prune to production-only deps so we can copy a slim node_modules tree.
+RUN pnpm --filter=@lod/server deploy --prod /app/deploy
+
+# ---------- Stage 2: runner ----------
+FROM node:22-alpine AS runner
+
+# curl is used by the HEALTHCHECK below.
+RUN apk add --no-cache curl
+
+ENV NODE_ENV=production
+ENV PORT=4000
+
+WORKDIR /app
+
+# node:22-alpine already ships with a non-root `node` user.
+USER node
+
+# Copy the pruned production deployment from the builder.
+# pnpm deploy produces a self-contained folder with node_modules + built dist.
+COPY --from=builder --chown=node:node /app/deploy/node_modules ./node_modules
+COPY --from=builder --chown=node:node /app/deploy/package.json ./package.json
+COPY --from=builder --chown=node:node /app/apps/server/dist ./apps/server/dist
+COPY --from=builder --chown=node:node /app/packages ./packages
+
+EXPOSE 4000
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
+  CMD curl -fsS http://127.0.0.1:4000/health || exit 1
+
+CMD ["node", "apps/server/dist/main.js"]

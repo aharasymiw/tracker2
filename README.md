@@ -1,42 +1,34 @@
-# Kindred
+# Land of Devastation
 
-Kindred is a secure, local-first cannabis tracking PWA built for private reflection and gradual reduction. The app runs entirely in the browser, stores encrypted data locally in IndexedDB, and can be deployed as static files on Cloudflare Pages.
+A modern, high-performance, secure client/server JavaScript rewrite of the classic post-apocalyptic BBS door game **Land of Devastation**, originally written by Scott M. Baker in Borland Pascal between 1990 and 1996.
 
-## Core ideas
-
-- All persistent user data is encrypted client-side before it is written to storage.
-- The app defaults to a fast `Log` flow so capturing use takes only a few taps.
-- Insights focus on patterns, pacing, and intention alignment instead of shame.
-- Backups are encrypted export files that users manage themselves.
+The faithful remake preserves the Puritron quest, Sacre Base, wasteland exploration, STR/DEX/AGL/HP stats, two-phase turn-based combat (Long Range → Close Combat), player-built fortresses with RoboDefenders, and daily turn budgets — while delivering them as a modern web application with a concurrent shared world.
 
 ## Stack
 
-- React 19
-- TypeScript 6
-- Tailwind CSS 4
-- shadcn preset configuration with CSS variables
-- Vite+
-- Zod
-- IndexedDB via `idb`
-- Playwright for E2E
+- **Client** — React 19, Vite, TypeScript, PixiJS v8, Tailwind CSS 4, Zustand, TanStack Query
+- **Server** — Node.js 22, Fastify, `@fastify/websocket`, Drizzle ORM, PostgreSQL 16, ioredis, `@node-rs/argon2`, Pino
+- **Shared** — TypeScript monorepo via pnpm workspaces; deterministic game core with seeded PCG32 PRNG; versioned Zod wire protocol
 
-## Scripts
+## Layout
 
-```bash
-npm install
-npm run dev
-npm run build
-npm run check
-npm test
-npm run test:e2e
+```
+apps/client   apps/server
+packages/protocol  packages/game-core  packages/game-content  packages/game-rng  packages/shared-utils
+tools/content-validator
+ops/docker  ops/fly  ops/migrations
+e2e
 ```
 
-## Security notes
+## Quick start
 
-- Password vaults use PBKDF2 plus AES-GCM to wrap the local data key.
-- Device unlock uses WebAuthn passkeys only when the browser exposes the secure PRF flow needed to derive a local secret client-side.
-- The service worker caches only the app shell and static assets. It never stores decrypted user data.
+```bash
+pnpm install
+pnpm check      # typecheck + lint + test
+pnpm build
+pnpm dev        # run client + server in parallel (requires local Postgres + Redis)
+```
 
-## Deployment
+## License / homage
 
-Build the static bundle and deploy the generated `dist` directory to Cloudflare Pages.
+This is a community tribute project inspired by the original Land of Devastation by Dr. Scott M. Baker. The original game and its assets remain the work of their respective authors; this rewrite is an independent reimplementation.

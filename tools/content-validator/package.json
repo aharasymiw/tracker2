@@ -1,0 +1,21 @@
+{
+  "name": "@lod/content-validator",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "bin": { "lod-content-validator": "./dist/cli.js" },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "echo \"(no unit tests)\"",
+    "start": "node dist/cli.js"
+  },
+  "dependencies": {
+    "@lod/game-content": "workspace:*",
+    "@lod/shared-utils": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.5",
+    "typescript": "^5.6.3"
+  }
+}

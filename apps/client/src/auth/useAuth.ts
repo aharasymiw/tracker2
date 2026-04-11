@@ -1,4 +1,5 @@
 import { useMutation, type UseMutationResult } from '@tanstack/react-query';
+import { apiUrl } from '../net/apiBase';
 import { useUiStore, type AuthenticatedUser } from '../state/uiStore';
 
 /**
@@ -40,8 +41,8 @@ interface ErrorBodyShape {
   message?: unknown;
 }
 
-async function postJson<TReq, TRes>(url: string, body: TReq): Promise<TRes> {
-  const response = await fetch(url, {
+async function postJson<TReq, TRes>(path: string, body: TReq): Promise<TRes> {
+  const response = await fetch(apiUrl(path), {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     credentials: 'include',

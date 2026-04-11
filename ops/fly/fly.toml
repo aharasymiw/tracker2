@@ -13,7 +13,10 @@ primary_region = "iad"
 [http_service]
   internal_port = 4000
   force_https = true
-  auto_stop_machines = true
+  # The server holds live WebSocket connections and in-memory world/combat
+  # state — auto-suspending the machine would drop every online player and
+  # force a rehydrate-from-Postgres pass. Keep the machine always-on.
+  auto_stop_machines = false
   auto_start_machines = true
   min_machines_running = 1
 

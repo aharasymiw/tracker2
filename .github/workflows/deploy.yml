@@ -25,7 +25,10 @@ jobs:
           cache: pnpm
 
       - name: Setup flyctl
-        uses: superfly/flyctl-actions/setup-flyctl@master
+        # Pin to a released tag. `@master` is a moving target and a supply-chain
+        # risk: any commit upstream (malicious or accidental) would run inside
+        # our deploy job with access to FLY_API_TOKEN.
+        uses: superfly/flyctl-actions/setup-flyctl@v1.5
 
       - name: Deploy to Fly.io
         env:

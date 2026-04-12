@@ -66,7 +66,15 @@ export async function buildServer(
     redis: opts.redis,
   });
 
-  await app.register(websocket);
+  // `maxPayload` caps a single inbound WS frame. Any client intent — move,
+  // attack, chat, trade — fits in a few hundred bytes; 16 KiB is a forgiving
+  // ceiling that still stops trivial memory-exhaustion DoS from a malicious
+  // peer streaming gigabyte frames.
+  await app.register(websocket, {
+    options: {
+      maxPayload: 16 * 1024,
+    },
+  });
 
   await registerRoutes(app, {
     db: opts.db,

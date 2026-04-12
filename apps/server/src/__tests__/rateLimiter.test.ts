@@ -3,24 +3,27 @@ import { createRateLimiter } from '../auth/rateLimiter.js';
 import type { RedisClient } from '../persistence/redis.js';
 
 /**
- * In-memory fake of the small Redis surface we use. We only need INCR,
- * EXPIRE, TTL, and DEL.
+ * In-memory fake of the small Redis surface we use. The rate limiter issues
+ * its INCR+EXPIRE+TTL as a single `eval` call (atomic Lua script on a real
+ * Redis), so the fake only needs to simulate `eval` with those three
+ * operations plus `del` for the reset path.
  */
 function makeFakeRedis(): RedisClient {
   const counters = new Map<string, number>();
   const ttls = new Map<string, number>();
   const fake = {
-    async incr(key: string): Promise<number> {
+    async eval(
+      _script: string,
+      _numKeys: number,
+      key: string,
+      windowSec: string,
+    ): Promise<[number, number]> {
       const next = (counters.get(key) ?? 0) + 1;
       counters.set(key, next);
-      return next;
-    },
-    async expire(key: string, ttl: number): Promise<number> {
-      ttls.set(key, ttl);
-      return 1;
-    },
-    async ttl(key: string): Promise<number> {
-      return ttls.get(key) ?? -1;
+      if (next === 1) {
+        ttls.set(key, Number(windowSec));
+      }
+      return [next, ttls.get(key) ?? -1];
     },
     async del(key: string): Promise<number> {
       const had = counters.delete(key);

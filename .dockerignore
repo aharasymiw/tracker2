@@ -1,0 +1,50 @@
+# Keep the Docker build context small and, more importantly, keep secrets and
+# local state out of the image. `COPY . .` in Dockerfile.server would otherwise
+# pull everything in this list into the builder stage.
+
+# Secrets and local env
+.env
+.env.*
+*.pem
+*.key
+
+# VCS and editor
+.git
+.gitignore
+.gitattributes
+.github
+.vscode
+.idea
+*.swp
+
+# Node / pnpm
+node_modules
+**/node_modules
+.pnpm-store
+**/.pnpm-store
+.npmrc
+
+# Build output (each stage rebuilds)
+dist
+**/dist
+build
+**/build
+coverage
+**/coverage
+.turbo
+**/.turbo
+.vite
+**/.vite
+
+# Tests / fixtures not needed at build
+e2e
+playwright-report
+test-results
+
+# OS noise
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs

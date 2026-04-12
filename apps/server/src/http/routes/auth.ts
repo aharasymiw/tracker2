@@ -4,7 +4,7 @@ import type {
   FastifyReply,
   FastifyRequest,
 } from 'fastify';
-import { and, eq, isNull } from 'drizzle-orm';
+import { and, eq, isNull, sql } from 'drizzle-orm';
 import { z } from 'zod';
 import type { Env } from '../../config/env.js';
 import type { Db } from '../../persistence/db.js';
@@ -25,6 +25,33 @@ export interface AuthDeps {
 }
 
 const SESSION_COOKIE_KEY = 'lodSessionToken';
+
+/**
+ * Account lockout thresholds. After `LOCKOUT_THRESHOLD` consecutive failed
+ * logins, the account is frozen for `LOCKOUT_WINDOW_MS`. This is layered on
+ * top of the per-IP + per-email rate limiter so an attacker cannot simply
+ * rotate IPs to keep trying the same username.
+ */
+const LOCKOUT_THRESHOLD = 10;
+const LOCKOUT_WINDOW_MS = 15 * 60 * 1000;
+
+/**
+ * A pre-computed Argon2id hash of a random password. Used on the "email does
+ * not exist" and "email already registered" paths so those requests pay the
+ * same CPU cost as a legitimate verify/hash and an attacker cannot distinguish
+ * registered from unregistered emails by response timing. The value is
+ * generated lazily on first use.
+ */
+let dummyHashCache: string | null = null;
+async function getDummyHash(pepper: string): Promise<string> {
+  if (dummyHashCache === null) {
+    dummyHashCache = await hashPassword(
+      'dummy-placeholder-password-for-timing-normalization',
+      pepper,
+    );
+  }
+  return dummyHashCache;
+}
 
 const registerBodySchema = z.object({
   email: z.string().email().max(254),
@@ -74,17 +101,25 @@ export const authRoutes: FastifyPluginAsync<AuthDeps> = async (
       return { error: { code: 'rate_limited', message: 'Too many requests' } };
     }
 
+    // Email enumeration mitigation: perform the Argon2 hash regardless of
+    // whether the email is already taken, and return the SAME response shape
+    // and status code on both paths. An attacker probing with a list of
+    // emails sees neither a distinguishable status code nor a response-time
+    // difference. Residual leak: registered accounts never receive a fresh
+    // Set-Cookie here — any future email-verification flow would close that
+    // gap too, but until then the rate limiter above is the backstop.
+    const passwordHash = await hashPassword(password, deps.env.PASSWORD_PEPPER);
+
     const existing = await deps.db
       .select({ id: users.id })
       .from(users)
       .where(and(eq(users.email, email), isNull(users.deletedAt)))
       .limit(1);
     if (existing.length > 0) {
-      reply.status(409);
-      return { error: { code: 'email_in_use', message: 'Email already registered' } };
+      reply.status(201);
+      return { ok: true };
     }
 
-    const passwordHash = await hashPassword(password, deps.env.PASSWORD_PEPPER);
     const [row] = await deps.db
       .insert(users)
       .values({ email, passwordHash })
@@ -98,7 +133,7 @@ export const authRoutes: FastifyPluginAsync<AuthDeps> = async (
     const token = await createSession(deps.redis, row.id);
     setSessionCookie(reply, token, deps.env.NODE_ENV === 'production');
     reply.status(201);
-    return { userId: row.id };
+    return { ok: true };
   });
 
   app.post('/login', async (request, reply) => {
@@ -128,7 +163,22 @@ export const authRoutes: FastifyPluginAsync<AuthDeps> = async (
       .where(and(eq(users.email, email), isNull(users.deletedAt)))
       .limit(1);
     const user = rows[0];
+
+    // Timing normalization: even on "no such email" we run a verify against
+    // a fixed dummy hash so the request time does not reveal whether the
+    // account exists. Only one Argon2 call is made per request.
+    const now = new Date();
     if (user === undefined) {
+      const dummy = await getDummyHash(deps.env.PASSWORD_PEPPER);
+      await verifyPassword(dummy, password, deps.env.PASSWORD_PEPPER);
+      reply.status(401);
+      return { error: { code: 'invalid_credentials', message: 'Invalid credentials' } };
+    }
+
+    // Lockout gate: a locked account rejects before we touch Argon2. This
+    // prevents a locked account from being used as a free Argon2 oracle and
+    // makes brute-force detectably expensive.
+    if (user.lockedUntil !== null && user.lockedUntil.getTime() > now.getTime()) {
       reply.status(401);
       return { error: { code: 'invalid_credentials', message: 'Invalid credentials' } };
     }
@@ -139,13 +189,25 @@ export const authRoutes: FastifyPluginAsync<AuthDeps> = async (
       deps.env.PASSWORD_PEPPER,
     );
     if (!ok) {
+      // Increment the failure counter atomically and — if this tips over the
+      // threshold — lock the account. One UPDATE, one round-trip. We cannot
+      // use drizzle's typed `.set` for the conditional CASE expression, hence
+      // the raw sql fragments.
+      const lockUntilExpr = sql`case when ${users.failedLoginCount} + 1 >= ${LOCKOUT_THRESHOLD} then now() + interval '${sql.raw(`${LOCKOUT_WINDOW_MS} milliseconds`)}' else ${users.lockedUntil} end`;
+      await deps.db
+        .update(users)
+        .set({
+          failedLoginCount: sql`${users.failedLoginCount} + 1`,
+          lockedUntil: lockUntilExpr,
+        })
+        .where(eq(users.id, user.id));
       reply.status(401);
       return { error: { code: 'invalid_credentials', message: 'Invalid credentials' } };
     }
 
     await deps.db
       .update(users)
-      .set({ lastLoginAt: new Date(), failedLoginCount: 0 })
+      .set({ lastLoginAt: now, failedLoginCount: 0, lockedUntil: null })
       .where(eq(users.id, user.id));
 
     const token = await createSession(deps.redis, user.id);

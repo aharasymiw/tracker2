@@ -1,5 +1,6 @@
 import { sql } from 'drizzle-orm';
 import {
+  check,
   index,
   integer,
   jsonb,
@@ -17,9 +18,15 @@ import {
  * `equipped_slot` is nullable; the partial unique index enforces "at most one
  * item per equipped slot per owner" when equipped_slot is not null.
  *
- * This, combined with a strict "one location at a time" service-layer rule,
- * is the anti-dupe backbone. Never mutate an inventory item without going
- * through the repository helpers.
+ * Anti-dupe contract (three layers):
+ *   1. **PK** — each item has a unique UUID `id`. An item can only exist in
+ *      one row, so it can only have one `(owner_kind, owner_id)` pair.
+ *   2. **Partial unique on equipped_slot** — at most one item per slot per owner.
+ *   3. **Service layer** — `transferItem()` in `@lod/game-core` clones
+ *      inventories and does remove-then-add, never copy. DB writes are
+ *      transactional (remove old row + insert new row in one TX).
+ *
+ * Never mutate an inventory item without going through the repository helpers.
  */
 export const inventoryItems = pgTable(
   'inventory_items',
@@ -42,6 +49,14 @@ export const inventoryItems = pgTable(
     uniqueEquippedSlot: uniqueIndex('inventory_unique_equipped_slot')
       .on(table.ownerKind, table.ownerId, table.equippedSlot)
       .where(sql`${table.equippedSlot} is not null`),
+    qtyPositive: check(
+      'inventory_qty_positive',
+      sql`${table.qty} >= 1`,
+    ),
+    ownerKindValid: check(
+      'inventory_owner_kind_valid',
+      sql`${table.ownerKind} in ('character', 'fortress', 'combat_reserve')`,
+    ),
   }),
 );
 

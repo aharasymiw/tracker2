@@ -96,6 +96,14 @@ export function useAuth(): UseAuthApi {
 
   const logout = (): void => {
     setUser(null);
+    fetch(apiUrl('/api/auth/logout'), {
+      method: 'POST',
+      credentials: 'include',
+    }).catch(() => {
+      // Best-effort: the local state is already cleared. If the server
+      // is unreachable, the session cookie will expire naturally via its
+      // TTL. Swallowing the error avoids an unhandled rejection.
+    });
   };
 
   return { user, login, register, logout };

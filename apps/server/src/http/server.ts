@@ -34,7 +34,26 @@ export async function buildServer(
 
   app.setErrorHandler(errorHandler);
 
-  await app.register(helmet, { global: true });
+  await app.register(helmet, {
+    global: true,
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'"],
+        styleSrc: ["'self'"],
+        imgSrc: ["'self'"],
+        connectSrc: ["'self'"],
+        fontSrc: ["'self'"],
+        objectSrc: ["'none'"],
+        frameSrc: ["'none'"],
+        baseUri: ["'self'"],
+        formAction: ["'self'"],
+        frameAncestors: ["'none'"],
+      },
+    },
+    crossOriginResourcePolicy: { policy: 'cross-origin' },
+    referrerPolicy: { policy: 'no-referrer' },
+  });
 
   const corsOrigins = opts.env.CORS_ORIGIN.split(',')
     .map((origin) => origin.trim())

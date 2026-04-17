@@ -1,4 +1,4 @@
-import type { CombatSessionId } from '@lod/shared-utils';
+import type { CharacterId, CombatSessionId } from '@lod/shared-utils';
 import type { Db } from '../persistence/db.js';
 
 /**
@@ -9,24 +9,21 @@ import type { Db } from '../persistence/db.js';
  *   - `load(id)`  — fetch from DB, deserialize state JSONB
  *   - `save(s)`   — serialize and upsert
  *   - `end(id)`   — mark ended_at and persist outcome
- *   - `activeForCharacter(characterId)` — index for reconnect flow
  *
  * For now this is a plain `Map` stub with no persistence. The shape exists
  * so wsGateway and GameWorld can depend on it without waiting for phase 4.
  */
-// Opaque active-session record. Actual shape comes from
-// `@lod/game-core`'s CombatSessionState once we wire it in.
 export interface ActiveCombatRecord {
   id: CombatSessionId;
-  // TODO: Phase 4 — `state: CombatSessionState` from @lod/game-core
+  participants: readonly CharacterId[];
   state: unknown;
 }
 
 export class CombatSessionStore {
   private readonly active = new Map<CombatSessionId, ActiveCombatRecord>();
+  private readonly charToSession = new Map<CharacterId, CombatSessionId>();
 
   constructor(private readonly db: Db) {
-    // db reserved for persistence calls added in Phase 4.
     void this.db;
   }
 
@@ -34,11 +31,26 @@ export class CombatSessionStore {
     return this.active.get(id);
   }
 
+  getByCharacter(charId: CharacterId): ActiveCombatRecord | undefined {
+    const sessionId = this.charToSession.get(charId);
+    if (sessionId === undefined) return undefined;
+    return this.active.get(sessionId);
+  }
+
   put(record: ActiveCombatRecord): void {
     this.active.set(record.id, record);
+    for (const charId of record.participants) {
+      this.charToSession.set(charId, record.id);
+    }
   }
 
   delete(id: CombatSessionId): void {
+    const record = this.active.get(id);
+    if (record !== undefined) {
+      for (const charId of record.participants) {
+        this.charToSession.delete(charId);
+      }
+    }
     this.active.delete(id);
   }
 

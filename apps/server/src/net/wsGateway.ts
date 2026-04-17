@@ -67,6 +67,14 @@ export function registerWsGateway(
     deps.world.addConnection(connection);
 
     transport.onMessage((raw) => {
+      if (!connection.checkMessageRate()) {
+        connection.sendJson('Error', {
+          code: 'rate_limited',
+          message: 'Too many messages',
+        });
+        return;
+      }
+
       const parsed = connection.envelope.parse(raw);
       if (!parsed.ok) {
         connection.sendJson('Error', {

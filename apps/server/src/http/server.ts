@@ -3,7 +3,6 @@ import cors from '@fastify/cors';
 import helmet from '@fastify/helmet';
 import rateLimit from '@fastify/rate-limit';
 import websocket from '@fastify/websocket';
-import secureSession from '@fastify/secure-session';
 import type { Logger as PinoLogger } from 'pino';
 import type { Env } from '../config/env.js';
 import type { Db } from '../persistence/db.js';
@@ -43,21 +42,6 @@ export async function buildServer(
   await app.register(cors, {
     origin: corsOrigins,
     credentials: true,
-  });
-
-  // secure-session wants a 32-byte key. In dev we pad/truncate the
-  // SESSION_SECRET. Production MUST supply a random 32-byte hex string.
-  const sessionKey = Buffer.from(
-    opts.env.SESSION_SECRET.padEnd(32, '0').slice(0, 32),
-  );
-  await app.register(secureSession, {
-    key: sessionKey,
-    cookie: {
-      httpOnly: true,
-      secure: opts.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      path: '/',
-    },
   });
 
   await app.register(rateLimit, {

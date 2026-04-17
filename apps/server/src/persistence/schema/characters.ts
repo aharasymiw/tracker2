@@ -47,7 +47,9 @@ export const characters = pgTable(
     deletedAt: timestamp('deleted_at', { withTimezone: true }),
   },
   (table) => ({
-    nameUnique: uniqueIndex('characters_name_unique').on(table.name),
+    nameUnique: uniqueIndex('characters_name_unique')
+      .on(table.name)
+      .where(sql`${table.deletedAt} is null`),
     userIdx: index('characters_user_idx').on(table.userId),
     positionIdx: index('characters_position_idx').on(
       table.sectorId,
